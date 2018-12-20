@@ -39,21 +39,21 @@ $(function() {
           }
         );
       });
+
       /* TODO: Write a test that loops through each feed
        * in the allFeeds object and ensures it has a name defined
        * and that the name is not empty.
        */
-       it('has a name defined and the name is not empty', function() {
-          allFeeds.forEach(feed => {
-              // it has a url defined
-              expect(feed.name).toBeDefined();
-              // the url is not empty
-              expect(feed.name.length).not.toBe(0);
-            }
-          );
-       });
+      it('has a name defined and the name is not empty', function() {
+         allFeeds.forEach(feed => {
+             // it has a name defined
+             expect(feed.name).toBeDefined();
+             // the name is not empty
+             expect(feed.name.length).not.toBe(0);
+           }
+         );
+      });
     });
-
 
     /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function() {
@@ -62,11 +62,13 @@ $(function() {
       * the CSS to determine how we're performing the
       * hiding/showing of the menu element.
       */
-      let body = $('body');
+      let body = $('body'),
+          menu = $('.menu-icon-link');
 
       it('is hidden by default', function() {
-      expect(body.hasClass('menu-hidden')).toBe(true);
-    });
+        expect(body.hasClass('menu-hidden')).toBe(true);
+      });
+
      /* TODO: Write a test that ensures the menu changes
       * visibility when the menu icon is clicked. This test
       * should have two expectations: does the menu display when
@@ -74,15 +76,16 @@ $(function() {
       */
       it('should change visibility when the menu icon is clicked', function () {
         // click on the menu icon
-        $('.menu-icon-link').click();
+        menu.click();
         // menu should be visible
         expect(body.hasClass('menu-hidden')).toBe(false);
         // click on the menu again
-        $('.menu-icon-link').click();
+        menu.click();
         // the menu should be hidden
         expect(body.hasClass('menu-hidden')).toBe(true);
       });
     });
+
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
       /* TODO: Write a test that ensures when the loadFeed
@@ -96,11 +99,11 @@ $(function() {
        });
 
        it('has atleast a single entry', function (done) {
-        // list container
-        let container = $('.feed'),
-            listItems = container.find('.entry');
-        expect(listItems.length).toBeGreaterThan(0);
-        done();
+         // list container
+         let container = $('.feed'),
+             listItems = container.find('.entry');
+          expect(listItems.length).toBeGreaterThan(0);
+          done();
        });
     });
 
@@ -110,21 +113,21 @@ $(function() {
        * by the loadFeed function that the content actually changes.
        * Remember, loadFeed() is asynchronous.
        */
-       let container = $('.feed'),
-           initialFeed;
+      let container = $('.feed'),
+          initialFeed;
 
       beforeEach(function(done) {
-          loadFeed(0, function() {
-              // initial feed
-              initialFeed = container.html();
-              // fetch a new feed
-              loadFeed(1, done);
-          });
+        loadFeed(0, function() {
+          // initial feed
+          initialFeed = container.html();
+          // fetch a new feed
+          loadFeed(1, done);
+        });
       });
 
       it('changes the content when a new feed is loaded', function(done) {
-          expect(container.html()).not.toBe(initialFeed);
-          done();
+        expect(container.html()).not.toBe(initialFeed);
+        done();
       });
     });
 
